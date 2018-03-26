@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="centerstage">
+
+
+    {% for obj in object_list %}
+        <div class="post">
+
+            <h1><a href="{% url 'blog:post_detail' pk=obj.id %}" class='btn btn-primary btn-sm' role='button'>View Details</a></h1>
+            <div class="date">
+                <p>Published on: {{ obj.published_date|date:"D M Y"}}</p>
+            </div>
+            <a href="#">Comments: {{ post.approve_comments.count }}</a>
+        </div>
+    {% endfor %}
+</div>
+<h1>kek</h1>
+{% endblock %}
