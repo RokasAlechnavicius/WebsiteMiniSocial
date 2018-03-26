@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Profile page</title>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="container-fluid">
+    <p> Username :{{user.username}}</p>
+    <p>Email : {{user.email}}</p>
+    <p>First name :{{user.first_name}}</p>
+    <p>Description : {{user.userprofile.description}}</p>
+    <p>City : {{user.userprofile.city}}</p>
+  </div>
+
+</div>
+{% endblock %}
