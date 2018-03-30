@@ -1,19 +1,27 @@
 {% extends "base.html" %}
 {% block body %}
 
-<div class="centerstage">
-
-
+    <div class="container centerstage>">
+      <h2>All published posts :</h2>
     {% for obj in object_list %}
-        <div class="post">
+        <div class="card border-light mb-3" style="padding-left: 10px">
+          <div class="col-md-8" >
+        <h2>
+            <a id="posttitle">{{obj.title}}</a>
+        </h2>
+        <p class="lead">
+          <h4>author : {{obj.user}}</h4>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Post was published at : {{obj.published_date}}</p>
+        <hr>
+        <p>{{obj.text}}</p>
+        <a class="btn btn-primary" href="{% url 'blog:post_detail' pk=obj.id %}">Comments : {{obj.approve_comments.count}}<span class=""></span></a>
 
-            <h1><a href="{% url 'blog:post_detail' pk=obj.id %}" class='btn btn-primary btn-sm' role='button'>View Details</a></h1>
-            <div class="date">
-                <p>Published on: {{ obj.published_date|date:"D M Y"}}</p>
-            </div>
-            <a href="#">Comments: {{ post.approve_comments.count }}</a>
+        <hr>
+          </div>
         </div>
     {% endfor %}
-</div>
-<h1>kek</h1>
+          </div>
+
+
 {% endblock %}

@@ -44,6 +44,9 @@ def post_create(request):
         post_form = PostForm()
     args={'post_form':post_form}
     return render(request,'blog/post_create.html',args)
+
+
+
 @login_required
 def post_update(request, pk=None):
     instance = get_object_or_404(Post,pk=pk)
@@ -68,7 +71,7 @@ def post_update(request, pk=None):
 
 class PostDeleteView(DeleteView):
     model = Post
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('blog:post_list')
 
 
 @login_required
@@ -79,8 +82,9 @@ def add_comment_to_post(request,pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
+            comment.author = request.user
             comment.save()
-            return redirect('post_detail',pk=post.pk)
+            return redirect('blog:post_detail',pk=post.pk)
     else:
         form = CommentForm()
     return render(request,'blog/comment_form.html',{'form':form})
@@ -89,18 +93,18 @@ def add_comment_to_post(request,pk):
 def comment_approve(request,pk):
     comment = get_object_or_404(Comment,pk=pk)
     comment.approve()
-    return redirect('post_detail',pk=comment.post.pk)
+    return redirect('blog:post_detail',pk=comment.post.pk)
 
 @login_required
 def comment_remove(request,pk):
     comment = get_object_or_404(Comment,pk=pk)
     post_pk = comment.post.pk
     comment.delete()
-    return redirect('post_detail',pk=post_pk)
+    return redirect('blog:post_detail',pk=post_pk)
 
 
 @login_required
 def post_publish(request,pk):
     post = get_object_or_404(Post,pk=pk)
     post.publish()
-    return redirect('post_detail',pk=pk)
+    return redirect('blog:post_detail',pk=pk)

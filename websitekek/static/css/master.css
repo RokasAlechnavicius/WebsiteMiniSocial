@@ -1,0 +1,33 @@
+#posttitle {
+  font-family: 'Russo One', sans-serif;
+}
+
+.techfont{
+  font-family: 'Russo One', sans-serif;
+  margin-bottom: 2.5em;
+}
+
+.centerstage{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.postdate{
+  text-align: center;
+}
+
+.posttitle{
+  font-family: 'Russo One', sans-serif;
+  font-size: 3em;
+  text-align:center;
+}
+
+.contentofpost{
+  font-family: 'Montserrat';
+  font-size: 1.5em;
+}
+
+.btn-comment{
+  position:absolute;
+  right=0px;
+}

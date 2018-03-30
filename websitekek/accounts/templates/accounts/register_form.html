@@ -2,15 +2,48 @@
 {% load bootstrap3 %}
 {% block body %}
 <div class="container container-fluid">
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action="{% url 'accounts:register' %}">
   {% csrf_token %}
-  {% bootstrap_form user_form %}
-  {% bootstrap_form profile_form %}
-{# {{form.as_p}} #}
-<input class="btn btn-danger" type="submit" name="" value="Register">
+  {% if user_form.errors %}
+    {% for field in user_form %}
+      {% for error in field.errors %}
+      <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{error}}</strong>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in user_form.non_field_errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{error}}</strong>
+    </div>
+  {% endfor %}
+  {% endif %}
+
+ <div class="form-group"><label class="control-label">Username</label><input type="text" name="username" required autofocus placeholder="Username" maxlength="150" class="form-control" id="id_username" title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only." />
+
+   <div class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
+
+</div>
+<div class="form-group"><label class="control-label">Email</label><input type="email" name="email" required placeholder="Email" title="" class="form-control" id="id_email" /></div>
+<div class="form-group"><label class="control-label">Password</label><input type="password" name="password1" required placeholder="Password" title="Your password can&amp;#39;t be too similar to your other personal information.Your password must contain at least 8 characters.Your password can&amp;#39;t be a commonly used password.Your password can&amp;#39;t be entirely numeric." class="form-control" id="id_password1" />
+
+   <div class="help-block"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Your password can&#39;t be entirely numeric.</li></ul></div>
+
+</div>
+<div class="form-group"><label class="control-label">Password confirmation</label><input type="password" name="password2" required placeholder="Password confirmation" title="Enter the same password as before, for verification." class="form-control" id="id_password2" />
+
+   <div class="help-block">Enter the same password as before, for verification.</div>
+
+</div>
+
+<input class="btn btn-success" type="submit" name="" value="Register">
 
 </form>
 </div>
+
+
 
 
 {% endblock %}

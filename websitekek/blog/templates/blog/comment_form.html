@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+{% if user.is_superuser %}
+<div class="container-fluid">
+  <form method="post" class="post-form">
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+
+    <button class='btn btn-default' type="submit">submit</button>
+  </form>
+</div>
+{%endif%}
+{% endblock %}

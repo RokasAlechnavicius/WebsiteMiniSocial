@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <div class="container centerstage">
+      <h2>All Drafts </h2>
+    {% for obj in object_list %}
+        <div class="card border-light mb-3" style="padding-left: 10px">
+              <div class="col-md-8" >
+        <h2>
+            <a id="posttitle">{{obj.title}}</a>
+        </h2>
+        <p class="lead">
+            by <a href="">{{obj.user}}</a>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Draft created at {{obj.create_date}}</p>
+        <hr>
+        <p>{{obj.text}}</p>
+        <a class="btn btn-primary" href="{% url 'blog:post_detail' pk=obj.id %}">More information<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <hr>
+      </div>
+        </div>
+    {% endfor %}
+          </div>
+
+
+{% endblock %}

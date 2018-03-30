@@ -6,11 +6,19 @@
 
 {% block body %}
 <div class="container-fluid">
-  <form method="post">
+  <form method="post" action="{% url 'accounts:editprofile' %}" enctype="multipart/form-data" >
     {% csrf_token %}
+    <div class="form-group"><label class="control-label">First name</label><input type="text" name="first_name" value="{{user.first_name}}" maxlength="30" placeholder="First name" id="id_first_name" class="form-control" title="" /></div>
+    <div class="form-group"><label class="control-label">Last name</label><input type="text" name="last_name" maxlength="150" value="{{user.last_name}}" placeholder="Last name" id="id_last_name" class="form-control" title="" /></div>
+    <div class="form-group"><label class="control-label">Email address</label><input type="email" name="email" value="{{user.email}}" maxlength="254" placeholder="Email address" id="id_email" class="form-control" title="" /></div>
+    <div class="form-group"><label class="control-label">Username</label><input type="text" name="username" value="{{user.username}}" maxlength="150" required placeholder="Username" id="id_username" class="form-control" title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only." />
 
-    {% bootstrap_form user_form %}
-    {% bootstrap_form profile_form %}
+        <div class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
+
+    </div>
+        <div class="form-group"><label class="control-label">Description</label><textarea name="description" maxlength="200" placeholder="Description" id="id_description" class="form-control" title="" cols="40" rows="10">{{user.userprofile.description}}</textarea></div>
+    <div class="form-group"><label class="control-label">City</label><input type="text" name="city" value="{{user.userprofile.city}}" maxlength="30" placeholder="City" id="id_city" class="form-control" title="" /></div>
+    <div class="form-group"><label class="control-label">Phonenumber</label><input type="number" name="phonenumber" value="{{user.userprofile.phonenumber}}" placeholder="Phonenumber" id="id_phonenumber" class="form-control" title="" /></div>
     <button type="submit">submit</button>
   </form>
 </div>
