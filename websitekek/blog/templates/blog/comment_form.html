@@ -3,12 +3,13 @@
 
 
 {% block body %}
-{% if user.is_superuser %}
+{% if user.is_authenticated %}
 <div class="container-fluid">
-  <form method="post" class="post-form">
+  <form method="post" class="post-form" action="{% url 'blog:add_comment_to_post' pk=pk %}">
     {% csrf_token %}
 
-    {% bootstrap_form form %}
+    <div class="form-group"><label class="control-label">Comment :</label><textarea name="text" placeholder="Text" required class="form-control" rows="10" title="" id="id_text" cols="40">
+</textarea></div>
 
     <button class='btn btn-default' type="submit">submit</button>
   </form>

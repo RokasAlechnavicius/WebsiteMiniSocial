@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block body %}
+{% if user.is_superuser %}
+<div class="container-fluid">
+  <form method="post" class="post-form" action="{% url 'blog:post_update' pk=pk %}">
+    {% csrf_token %}
+
+    <div class="form-group"><label class="control-label" >Title</label><input type="text" name="title" value="{{obj.title}}" class="form-control" title="" id="id_title" maxlength="100" required placeholder="Title" /></div>
+<div class="form-group"><label class="control-label" >Text</label><textarea name="text" cols="40" class="form-control" title="" id="id_text" required placeholder="Text" rows="10">{{obj.text}}
+</textarea></div>
+
+    <button class='btn btn-default' type="submit">submit</button>
+  </form>
+</div>
+{%endif%}
+{% endblock %}

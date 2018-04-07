@@ -97,7 +97,7 @@ def editprofile(request):
     else:
         user_form = EditProfileForm(instance = request.user)
         profile_form = EditProfileInformationForm(instance=request.user.userprofile)
-        args = {'user_form':user_form,'profile_form':profile_form}
+    args = {'user_form':user_form,'profile_form':profile_form}
     return render(request,'accounts/editprofile.html',args)
 
 @login_required
@@ -109,9 +109,10 @@ def changepassword(request):
             update_session_auth_hash(request,form.user)
             return redirect('/accounts/profile')
         else:
+            print(form.errors)
             redirect('account/changepassword')
 
     else:
-        form = PasswordChangeForm(user=request.user)
-        args = {'form':form}
+        form = PasswordChangeForm(request.user)
+    args = {'form':form}
     return render(request,'accounts/changepassword.html',args)

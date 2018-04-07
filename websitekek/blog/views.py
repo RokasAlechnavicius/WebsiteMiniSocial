@@ -61,8 +61,8 @@ def post_update(request, pk=None):
             print(post_form.errors)
     else:
         post_form = PostForm(instance=instance)
-    args={'obj':instance,'post_form':post_form}
-    return render(request,"blog/post_create.html",args)
+    args={'obj':instance,'post_form':post_form,'pk':pk}
+    return render(request,"blog/post_update.html",args)
 
 # def post_delete(request, id=None):
 #     instance = get_object_or_404(Post,id=id)
@@ -87,7 +87,8 @@ def add_comment_to_post(request,pk):
             return redirect('blog:post_detail',pk=post.pk)
     else:
         form = CommentForm()
-    return render(request,'blog/comment_form.html',{'form':form})
+        primak=pk
+    return render(request,'blog/comment_form.html',{'form':form,'pk':primak})
 
 @login_required
 def comment_approve(request,pk):

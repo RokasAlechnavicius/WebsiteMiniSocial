@@ -5,10 +5,12 @@
 {% block body %}
 {% if user.is_superuser %}
 <div class="container-fluid">
-  <form method="post" class="post-form">
+  <form method="post" class="post-form" action="{% url 'blog:post_create' %}">
     {% csrf_token %}
 
-    {% bootstrap_form post_form %}
+    <div class="form-group"><label class="control-label" >Title</label><input type="text" name="title" value="" class="form-control" title="" id="id_title" maxlength="100" required placeholder="Title" /></div>
+<div class="form-group"><label class="control-label" >Text</label><textarea name="text" cols="40" class="form-control" title="" id="id_text" required placeholder="Text" rows="10">
+</textarea></div>
 
     <button class='btn btn-default' type="submit">submit</button>
   </form>
