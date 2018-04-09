@@ -10,7 +10,12 @@
 
     <div class="form-group"><label class="control-label">Comment :</label><textarea name="text" placeholder="Text" required class="form-control" rows="10" title="" id="id_text" cols="40">
 </textarea></div>
-
+{% if form.text.errors %}
+<div class="alert alert-dismissible alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{form.text.errors}}</strong>
+</div>
+{% endif %}
     <button class='btn btn-default' type="submit">submit</button>
   </form>
 </div>

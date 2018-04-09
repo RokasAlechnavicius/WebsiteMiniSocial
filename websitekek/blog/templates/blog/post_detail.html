@@ -28,12 +28,7 @@
 </div>
 </div>
   <h1>Javadcript testing</h1>
-  <div id="accordion">
-    <h3>First header</h3>
-    <div>First content panel</div>
-    <h3>Second header</h3>
-    <div>Second content panel</div>
-  </div>
+
 
 
 
@@ -43,33 +38,32 @@
 
   {% for comment in obj.comments.all %}
     {% if comment.approved_comment %}
-    <div class="card mb-3">
-      <div class=" col-md-5 col-lg-6">
-      <br>
     <h5>{{comment.author}} wrote on {{comment.create_date}} </h5>
-    <p>{{comment.text}}</p>
+    <div>
+          <p>{{comment.text}}</p>
+          {% if user.is_superuser %}
+          <a class="btn btn-danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
+            Remove Comment
+          </a>
+          {% endif %}
+    </div>
   {% endif %}
         {%if user.is_superuser%}
     {% if not comment.approved_comment %}
-    <div class="card mb-3">
-      <div class=" col-md-5 col-lg-6">
-      <br>
-      <h5>{{comment.author}} wrote on {{comment.create_date}} </h5>
-      <p>{{comment.text}}</p>
-      <a class="btn btn-success" href="{% url 'blog:comment_approve' pk=comment.pk %}">
-        Approve Comment
-      </a>
-        {% endif %}
-    <a class="btn btn-danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
-      Remove Comment
-    </a>
-        {% endif %}
-        </div>
-            </div>
-  {% endfor %}
 
-</div>
-</div>
+      <h5>{{comment.author}} wrote on {{comment.create_date}} </h5>
+      <div>
+            <p>{{comment.text}}</p>
+            <a class="btn btn-success" href="{% url 'blog:comment_approve' pk=comment.pk %}">
+              Approve Comment
+            </a>
+            <a class="btn btn-danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
+              Remove Comment
+            </a>
+      </div>
+        {% endif %}
+        {% endif %}
+  {% endfor %}
 </div>
 {% if user.is_authenticated %}
 <div class="container">

@@ -9,7 +9,7 @@ User = get_user_model()
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    text = models.TextField()
+    text = models.TextField(max_length=500)
     create_date = models.DateTimeField(default=timezone.now())
     published_date = models.DateTimeField(blank=True,null=True)
 
@@ -32,7 +32,7 @@ class Post(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     post = models.ForeignKey('blog.Post',related_name='comments',on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(max_length=250)
     create_date = models.DateTimeField(default=timezone.now())
     approved_comment = models.BooleanField(default=False)
 

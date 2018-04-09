@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 from blog.forms import CommentForm,PostForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from blog.models import Post,Comment
 class AboutView(TemplateView):
@@ -48,17 +49,15 @@ def post_create(request):
 
 
 @login_required
-def post_update(request, pk=None):
+def post_update(request, pk):
     instance = get_object_or_404(Post,pk=pk)
-    post_form = PostForm(request.POST,instance=instance)
     if request.method == "POST":
+        post_form = PostForm(request.POST,instance=instance)
 
         if post_form.is_valid():
 
             post_form.save()
             return redirect('/blog')
-        else:
-            print(post_form.errors)
     else:
         post_form = PostForm(instance=instance)
     args={'obj':instance,'post_form':post_form,'pk':pk}
@@ -68,8 +67,7 @@ def post_update(request, pk=None):
 #     instance = get_object_or_404(Post,id=id)
 #     instance.delete()
 #     return refirect('/blog')
-
-class PostDeleteView(DeleteView):
+class PostDeleteView(DeleteView,LoginRequiredMixin):
     model = Post
     success_url = reverse_lazy('blog:post_list')
 
@@ -87,7 +85,7 @@ def add_comment_to_post(request,pk):
             return redirect('blog:post_detail',pk=post.pk)
     else:
         form = CommentForm()
-        primak=pk
+    primak=pk
     return render(request,'blog/comment_form.html',{'form':form,'pk':primak})
 
 @login_required

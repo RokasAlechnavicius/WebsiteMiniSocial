@@ -9,8 +9,20 @@
     {% csrf_token %}
 
     <div class="form-group"><label class="control-label" >Title</label><input type="text" name="title" value="" class="form-control" title="" id="id_title" maxlength="100" required placeholder="Title" /></div>
+    {% if post_form.title.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{post_form.title.errors}}</strong>
+    </div>
+    {% endif %}
 <div class="form-group"><label class="control-label" >Text</label><textarea name="text" cols="40" class="form-control" title="" id="id_text" required placeholder="Text" rows="10">
 </textarea></div>
+{% if post_form.text.errors %}
+<div class="alert alert-dismissible alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{post_form.text.errors}}</strong>
+</div>
+{% endif %}
 
     <button class='btn btn-default' type="submit">submit</button>
   </form>
