@@ -35,7 +35,7 @@
   <body>
 
      <!-- Static navbar -->
-     <div class="container-fluid">
+     <!-- <div class="container-fluid">
      <nav class="navbar navbar-expand-lg navbar-light bg-light techfont" role="navigation">
   <a class="navbar-brand" href="{% url 'home' %}">Nani the Blog Site</a>
        <div class="container">
@@ -55,7 +55,9 @@
         <li class="nav-item"> <a class="nav-link" href="{% url 'accounts:profile' %}">Your profile</a> </li>
         <li class="nav-item"> <a class="nav-link" href="{% url 'accounts:editprofile' %}">Edit your profile</a> </li>
         <li class="nav-item"> <a class="nav-link" href="{% url 'accounts:changepassword' %}">Change your password</a> </li>
-
+        {% if user.is_superuser %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'accounts:showlogs' %}">Show system logs</a> </li>
+        {% endif %}
            {% else %}
              <li  class="nav-item"> <a class="nav-link" href="{% url 'accounts:login' %}">Login</a> </li>
                <li  class="nav-item"> <a class="nav-link" href="{% url 'accounts:register' %}">Register</a> </li>
@@ -63,7 +65,58 @@
       </li>
     </ul>
   </div>
-   </div>
+   </div> -->
+</nav>
+</div>
+<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-light techfont">
+  <a class="navbar-brand" href="{% url 'home' %}">Nani the blog site</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <div class="container">
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:post_create' %}">Create a new draft</a> </li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'blog:post_list' %}">Published posts <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'blog:draft_list' %}">Drafts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:editprofile' %}">Edit Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:changepassword' %}">Change Password</a>
+      </li>
+      {%if user.is_superuser%}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:showlogs' %}">Show System Logs</a>
+      </li>
+      {%endif%}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:logout' %}">LogOut</a>
+      </li>
+      {%else%}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:login' %}">LogIn</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+      </li>
+            </div>
+      {%endif%}
+    </ul>
+  </div>
 </nav>
 </div>
 

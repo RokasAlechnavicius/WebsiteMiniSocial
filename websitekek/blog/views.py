@@ -6,6 +6,7 @@ from blog.forms import CommentForm,PostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+from accounts.models import ErrorLogging
 from blog.models import Post,Comment
 class AboutView(TemplateView):
     template_name='about.html'
@@ -38,6 +39,7 @@ def post_create(request):
             instance = post_form.save(commit=False)
             instance.user = request.user
             instance.save()
+            ErrorLogging.objects.create_error('A new post was created by '+ str(instance.user.username) + ' the post is titled ' + str(instance.title))
             return redirect('/blog')
         else:
             print(post_form.errors)
@@ -82,6 +84,7 @@ def add_comment_to_post(request,pk):
             comment.post = post
             comment.author = request.user
             comment.save()
+            ErrorLogging.objects.create_error('A new comment was created by '+ str(comment.author) + ' the comment is for the post ' + str(comment.post))
             return redirect('blog:post_detail',pk=post.pk)
     else:
         form = CommentForm()

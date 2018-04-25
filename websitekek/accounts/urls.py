@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^profile/$', views.profile,name = 'profile'),
     url(r'^profile/edit/$',views.editprofile,name='editprofile'),
     url(r'^change-password/$',views.changepassword,name='changepassword'),
-    url(r'^$',views.home, name='home')
+    url(r'^$',views.home, name='home'),
+    url(r'^SystemLogs/$',views.ShowLogs,name='showlogs')
 
 ]

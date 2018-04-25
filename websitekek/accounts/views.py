@@ -5,11 +5,16 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import ErrorLogging
 # Create your views here.
 
 
 def home(request):
     return render(request,'accounts/home.html')
+def ShowLogs(request):
+    queryset = ErrorLogging.objects.all().order_by('error_time')
+    args = {'errors':queryset}
+    return render(request,'accounts/SystemLogs.html',args)
 
 
 def login_view(request):
@@ -86,7 +91,7 @@ def profile(request):
 def editprofile(request):
     if request.method == 'POST' :
         user_form = EditProfileForm(data = request.POST,instance = request.user)
-        profile_form = EditProfileInformationForm(data=request.POST,instance=request.user.userprofile)
+        profile_form = EditProfileInformationForm(data=request.POST,instance = request.user.userprofile)
         if user_form.is_valid() and profile_form.is_valid():
             profile_form.save()
             user_form.save()
@@ -96,7 +101,7 @@ def editprofile(request):
 
     else:
         user_form = EditProfileForm(instance = request.user)
-        profile_form = EditProfileInformationForm(instance=request.user.userprofile)
+        profile_form = EditProfileInformationForm(instance = request.user.userprofile)
     args = {'user_form':user_form,'profile_form':profile_form}
     return render(request,'accounts/editprofile.html',args)
 

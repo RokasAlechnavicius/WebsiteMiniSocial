@@ -8,34 +8,60 @@
 <div class="container-fluid">
   <form method="post" action="{% url 'accounts:editprofile' %}" enctype="multipart/form-data" >
     {% csrf_token %}
-    {% if user_form.errors %}
-      {% for field in user_form %}
-        {% for error in field.errors %}
+
+    <div class="form-group"><label class="control-label">First name</label><input type="text" name="first_name" value="{{user.first_name}}" placeholder="First name" id="id_first_name" class="form-control" title="" /></div>
+    {% if user_form.first_name.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{user_form.first_name.errors}}</strong>
+    </div>
+    {%endif%}
+    <div class="form-group"><label class="control-label">Last name</label><input type="text" name="last_name" maxlength="150" value="{{user.last_name}}" placeholder="Last name" id="id_last_name" class="form-control" title="" /></div>
+    {% if user_form.last_name.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{user_form.last_name.errors}}</strong>
+    </div>
+    {%endif%}
+    <div class="form-group"><label class="control-label">Email address</label><input type="email" name="email" value="{{user.email}}" maxlength="254" placeholder="Email address" id="id_email" class="form-control" title="" /></div>
+    {% if user_form.email.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{user_form.email.errors}}</strong>
+    </div>
+    {%endif%}
+    <div class="form-group"><label class="control-label">Username</label><input type="text" name="username" value="{{user.username}}" maxlength="150" required placeholder="Username" id="id_username" class="form-control" title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only." />
+        <div class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
+        {% if user_form.username.errors %}
         <div class="alert alert-dismissible alert-danger">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>{{error}}</strong>
+          <strong>{{user_form.username.errors}}</strong>
         </div>
-        {% endfor %}
-      {% endfor %}
-      {% for error in user_form.non_field_errors %}
-      <div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>{{error}}</strong>
-      </div>
-    {% endfor %}
-    {% endif %}
-    <div class="form-group"><label class="control-label">First name</label><input type="text" name="first_name" value="{{user.first_name}}" maxlength="30" placeholder="First name" id="id_first_name" class="form-control" title="" /></div>
-    <div class="form-group"><label class="control-label">Last name</label><input type="text" name="last_name" maxlength="150" value="{{user.last_name}}" placeholder="Last name" id="id_last_name" class="form-control" title="" /></div>
-    <div class="form-group"><label class="control-label">Email address</label><input type="email" name="email" value="{{user.email}}" maxlength="254" placeholder="Email address" id="id_email" class="form-control" title="" /></div>
-    <div class="form-group"><label class="control-label">Username</label><input type="text" name="username" value="{{user.username}}" maxlength="150" required placeholder="Username" id="id_username" class="form-control" title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only." />
-
-        <div class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
+        {% endif %}
 
     </div>
         <div class="form-group"><label class="control-label">Description</label><textarea name="description" maxlength="200" placeholder="Description" id="id_description" class="form-control" title="" cols="40" rows="10">{{user.userprofile.description}}</textarea></div>
-    <div class="form-group"><label class="control-label">City</label><input type="text" name="city" value="{{user.userprofile.city}}" maxlength="30" placeholder="City" id="id_city" class="form-control" title="" /></div>
-    <div class="form-group"><label class="control-label">Phonenumber</label><input type="number" name="phonenumber" value="{{user.userprofile.phonenumber}}" placeholder="Phonenumber" id="id_phonenumber" class="form-control" title="" /></div>
-    <button class="btn btn-default" type="submit">submit</button>
+        {% if profile_form.description.errors %}
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>{{profile_form.description.errors}}</strong>
+        </div>
+        {% endif %}
+    <div class="form-group"><label class="control-label">City</label><input type="text" name="city" value="{{user.userprofile.city}}" placeholder="City" id="id_city" class="form-control" title="" /></div>
+    {% if profile_form.city.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{profile_form.city.errors}}</strong>
+    </div>
+    {% endif %}
+    <div class="form-group"><label class="control-label">Phonenumber</label><input type="number" name="phonenumber" value="{{user.userprofile.phonenumber}}" maxlength="15" placeholder="Phonenumber" id="id_phonenumber" class="form-control" title="" /></div>
+    {% if profile_form.phonenumber.errors %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{profile_form.phonenumber.errors}}</strong>
+    </div>
+    {% endif %}
+        <button class="btn btn-default" type="submit">submit</button>
   </form>
 </div>
 

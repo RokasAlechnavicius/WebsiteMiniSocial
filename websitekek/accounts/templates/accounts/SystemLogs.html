@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if user.is_superuser %}
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Log Message</th>
+      <th scope="col">Time When Logged</th>
+    </tr>
+        </thead>
+        <tbody>
+    {% for stuff in errors %}
+      <tr>
+        <td>{{stuff.error_text}}</td>
+        <td>{{stuff.error_time}}</td>
+      </tr>
+    {% endfor %}
+            </tbody>
+  </table>
+
+  {% endif %}
+{% endblock %}

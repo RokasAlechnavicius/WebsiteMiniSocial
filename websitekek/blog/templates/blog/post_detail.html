@@ -15,7 +15,10 @@
     {% endif %}
   {% endif %}
   <p class="contentofpost">
+    <br>
+    <br>
     {{obj.text}}
+    <br>
   </p>
   {% if user.is_superuser %}
   <a class="btn btn-info" href="{% url 'blog:post_update' pk=obj.pk %}">
@@ -27,20 +30,13 @@
 {% endif %}
 </div>
 </div>
-  <h1>Javadcript testing</h1>
-
-
-
-
-
-  <h1>Comment Section of the Post</h1>
 <div id='accordion'>
 
   {% for comment in obj.comments.all %}
     {% if comment.approved_comment %}
-    <h5>{{comment.author}} wrote on {{comment.create_date}} </h5>
+    <h5 id="ui-accordion-header">{{comment.author}} wrote on {{comment.create_date}} </h5>
     <div>
-          <p>{{comment.text}}</p>
+          <p id='accordiontext'>{{comment.text}}</p>
           {% if user.is_superuser %}
           <a class="btn btn-danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
             Remove Comment
@@ -70,7 +66,14 @@
   <a class="btn btn-primary btn-comment" href="{% url 'blog:add_comment_to_post' pk=obj.pk %}">Comment</a>
 </div>
 <script>
-$( "#accordion" ).accordion();
+$( "#accordion" ).accordion({
+  collapsible: true,
+  animate:500,
+  active:false,
+
+});
+$(".ui-accordion-header").css("background","lightgrey") ;
+$(".ui-accordion-content").css("background","grey") ;
 </script>
 {% endif %}
 

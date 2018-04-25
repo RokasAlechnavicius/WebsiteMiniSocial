@@ -5,7 +5,7 @@
       <h2>All published posts :</h2>
     {% for obj in object_list %}
         <div class="card border-light mb-3" style="padding-left: 10px">
-          <div class="col-md-8" >
+          <div class="col-md-8 ui-content" >
         <h2>
             <a id="posttitle">{{obj.title}}</a>
         </h2>
@@ -14,14 +14,19 @@
         </p>
         <p><span class="glyphicon glyphicon-time"></span> Post was published at : {{obj.published_date}}</p>
         <hr>
-        <p>{{obj.text}}</p>
-        <a class="btn btn-primary" href="{% url 'blog:post_detail' pk=obj.id %}">Comments : {{obj.approve_comments.count}}<span class=""></span></a>
+        <p>{{obj.text|truncatewords:10}}...</p>
+        <a class="btn btn-primary" id="toggle"href="{% url 'blog:post_detail' pk=obj.id %}">Comments : {{obj.approve_comments.count}}<span class=""></span></a>
 
         <hr>
           </div>
         </div>
     {% endfor %}
           </div>
+<script>
+$( document ).click(function() {
+  $( "#toggle" ).toggle( "highlight" );
+});
 
+</script>
 
 {% endblock %}
